@@ -66,6 +66,7 @@ export async function PUT(
     const body = await request.json();
     const { name, content } = updateTemplateSchema.parse(body);
     
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const updateData: Record<string, any> = {};
     
     if (name !== undefined) {

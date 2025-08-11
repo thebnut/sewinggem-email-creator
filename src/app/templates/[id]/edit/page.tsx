@@ -48,7 +48,7 @@ export default function EditTemplatePage() {
       } else {
         setError('Template not found');
       }
-    } catch (error) {
+    } catch {
       setError('Failed to load template');
     } finally {
       setLoading(false);
@@ -81,7 +81,7 @@ export default function EditTemplatePage() {
       } else {
         setError(data.error || 'Failed to update template');
       }
-    } catch (err) {
+    } catch {
       setError('An error occurred. Please try again.');
     } finally {
       setSaving(false);

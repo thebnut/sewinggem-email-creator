@@ -42,7 +42,7 @@ export default function TemplateViewerPage() {
       } else {
         setError(data.error || 'Template not found');
       }
-    } catch (err) {
+    } catch {
       setError('Failed to load template');
     } finally {
       setLoading(false);
@@ -57,7 +57,7 @@ export default function TemplateViewerPage() {
       await navigator.clipboard.writeText(template.content);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
+    } catch {
       console.error('Failed to copy:', err);
     }
   };
@@ -70,7 +70,7 @@ export default function TemplateViewerPage() {
       await navigator.clipboard.writeText(template.html);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
+    } catch {
       console.error('Failed to copy:', err);
     }
   };
