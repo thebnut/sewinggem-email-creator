@@ -1,0 +1,40 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Template {
+  id           Int      @id @default(autoincrement())
+  slug         String   @unique
+  name         String
+  content      String   @db.Text
+  placeholders Json?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+  @@map("templates")
+}
+
+model AdminUser {
+  id           Int      @id @default(autoincrement())
+  username     String   @unique
+  passwordHash String   @map("password_hash")
+  createdAt    DateTime @default(now())
+  
+  @@map("admin_users")
+}
+
+model AuditLog {
+  id          Int      @id @default(autoincrement())
+  action      String   @db.VarChar(50)
+  templateId  Int?     @map("template_id")
+  templateName String? @map("template_name")
+  timestamp   DateTime @default(now())
+  details     Json?
+  
+  @@map("audit_logs")
+}
