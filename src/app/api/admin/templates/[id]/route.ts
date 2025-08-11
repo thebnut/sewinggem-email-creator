@@ -66,7 +66,7 @@ export async function PUT(
     const body = await request.json();
     const { name, content } = updateTemplateSchema.parse(body);
     
-    const updateData: any = {};
+    const updateData: Record<string, any> = {};
     
     if (name !== undefined) {
       updateData.name = name;

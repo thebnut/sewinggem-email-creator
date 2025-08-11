@@ -23,7 +23,7 @@ export function generateToken(userId: number, username: string): string {
   );
 }
 
-export function verifyToken(token: string): any {
+export function verifyToken(token: string): { id: number; username: string } | null {
   try {
     return jwt.verify(token, JWT_SECRET);
   } catch {
