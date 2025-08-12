@@ -93,10 +93,8 @@ export async function PUT(
     
     if (content !== undefined) {
       updateData.content = content;
-      updateData.placeholders = extractPlaceholders(content);
-      if (updateData.placeholders.length === 0) {
-        updateData.placeholders = null;
-      }
+      const placeholders = extractPlaceholders(content);
+      updateData.placeholders = placeholders.length > 0 ? placeholders : undefined;
     }
     
     const template = await prisma.template.update({

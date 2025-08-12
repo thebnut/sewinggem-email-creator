@@ -73,7 +73,7 @@ export async function POST(request: NextRequest) {
         name,
         slug,
         content,
-        placeholders: placeholders.length > 0 ? placeholders : null,
+        placeholders: placeholders.length > 0 ? placeholders : undefined,
       },
     });
     
