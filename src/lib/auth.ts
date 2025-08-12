@@ -25,7 +25,11 @@ export function generateToken(userId: number, username: string): string {
 
 export function verifyToken(token: string): { id: number; username: string } | null {
   try {
-    return jwt.verify(token, JWT_SECRET);
+    const decoded = jwt.verify(token, JWT_SECRET);
+    if (typeof decoded === 'object' && decoded !== null && 'id' in decoded && 'username' in decoded) {
+      return decoded as { id: number; username: string };
+    }
+    return null;
   } catch {
     return null;
   }
