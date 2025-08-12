@@ -57,7 +57,7 @@ export default function TemplateViewerPage() {
       await navigator.clipboard.writeText(template.content);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    } catch {
+    } catch (err) {
       console.error('Failed to copy:', err);
     }
   };
@@ -70,7 +70,7 @@ export default function TemplateViewerPage() {
       await navigator.clipboard.writeText(template.html);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    } catch {
+    } catch (err) {
       console.error('Failed to copy:', err);
     }
   };
