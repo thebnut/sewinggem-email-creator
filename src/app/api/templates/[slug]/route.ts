@@ -6,11 +6,12 @@ import { renderMarkdown } from '@/lib/markdown';
 // GET /api/templates/[slug] - Get template with placeholders replaced
 export async function GET(
   request: NextRequest,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
+  const { slug } = await params;
   try {
     const template = await prisma.template.findUnique({
-      where: { slug: params.slug },
+      where: { slug },
     });
     
     if (!template) {

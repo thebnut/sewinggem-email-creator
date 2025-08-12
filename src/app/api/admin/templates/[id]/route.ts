@@ -12,8 +12,9 @@ const updateTemplateSchema = z.object({
 // GET /api/admin/templates/[id] - Get single template
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   const session = await getSession();
   
   if (!session) {
@@ -25,7 +26,7 @@ export async function GET(
   
   try {
     const template = await prisma.template.findUnique({
-      where: { id: parseInt(params.id) },
+      where: { id: parseInt(id) },
     });
     
     if (!template) {
@@ -51,8 +52,9 @@ export async function GET(
 // PUT /api/admin/templates/[id] - Update template
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   const session = await getSession();
   
   if (!session) {
@@ -77,7 +79,7 @@ export async function PUT(
       const existing = await prisma.template.findFirst({
         where: {
           slug: updateData.slug,
-          NOT: { id: parseInt(params.id) },
+          NOT: { id: parseInt(id) },
         },
       });
       
@@ -98,7 +100,7 @@ export async function PUT(
     }
     
     const template = await prisma.template.update({
-      where: { id: parseInt(params.id) },
+      where: { id: parseInt(id) },
       data: updateData,
     });
     
@@ -128,8 +130,9 @@ export async function PUT(
 // DELETE /api/admin/templates/[id] - Delete template
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   const session = await getSession();
   
   if (!session) {
@@ -141,7 +144,7 @@ export async function DELETE(
   
   try {
     const template = await prisma.template.findUnique({
-      where: { id: parseInt(params.id) },
+      where: { id: parseInt(id) },
     });
     
     if (!template) {
@@ -152,7 +155,7 @@ export async function DELETE(
     }
     
     await prisma.template.delete({
-      where: { id: parseInt(params.id) },
+      where: { id: parseInt(id) },
     });
     
     // Log the action
